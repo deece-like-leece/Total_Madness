@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Continental Science Dispatch | Tiny Dinosaurs With Robotic Hearts</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --paper: #ffffff;
+      --ink: #181818;
+      --muted: #6d6d6d;
+      --line: #dddddd;
+      --accent: #8a0f14;
+      --accent-dark: #5f0a0e;
+      --link: #1f4f8a;
+      --sidebar: #faf9f7;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.65;
+    }
+
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .topbar {
+      background: #111;
+      color: #eee;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.83rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .masthead-wrap {
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .masthead {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px 20px 22px;
+      text-align: center;
+    }
+
+    .publication {
+      font-size: clamp(2rem, 3vw, 3.2rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .tagline {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: center;
+      gap: 26px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding: 14px 20px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.95rem;
+      background: var(--paper);
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 32px auto;
+      padding: 0 20px 60px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.15fr) minmax(260px, 0.85fr);
+      gap: 34px;
+    }
+
+    .article, .sidebar {
+      background: var(--paper);
+      border: 1px solid var(--line);
+    }
+
+    .article {
+      padding: 28px;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-family: Arial, Helvetica, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.8rem;
+      color: white;
+      background: var(--accent);
+      padding: 6px 10px;
+      border-radius: 3px;
+      margin-bottom: 18px;
+    }
+
+    .headline {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1.08;
+      margin: 0 0 10px;
+    }
+
+    .subhed {
+      font-size: 1.18rem;
+      color: #333;
+      margin: 0 0 22px;
+    }
+
+    .meta {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--muted);
+      font-size: 0.92rem;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      margin-bottom: 24px;
+    }
+
+    .hero {
+      margin: 0 0 10px;
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, #d3c4a8, #9b8763 40%, #60513f 100%);
+      min-height: 420px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: end;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 25%, rgba(255,255,255,0.20), transparent 22%),
+        radial-gradient(circle at 72% 30%, rgba(255,255,255,0.14), transparent 18%),
+        radial-gradient(circle at 58% 75%, rgba(0,0,0,0.17), transparent 20%),
+        repeating-linear-gradient(120deg, rgba(0,0,0,0.08) 0 2px, transparent 2px 16px);
+      mix-blend-mode: multiply;
+    }
+
+    .hero-art {
+      position: absolute;
+      inset: 0;
+      opacity: 0.78;
+      background:
+        radial-gradient(ellipse at 30% 60%, rgba(49,34,18,.55), transparent 18%),
+        radial-gradient(ellipse at 44% 57%, rgba(49,34,18,.45), transparent 9%),
+        radial-gradient(ellipse at 47% 62%, rgba(49,34,18,.45), transparent 8%),
+        radial-gradient(ellipse at 54% 54%, rgba(49,34,18,.48), transparent 10%),
+        radial-gradient(ellipse at 62% 59%, rgba(49,34,18,.55), transparent 17%),
+        radial-gradient(ellipse at 50% 48%, rgba(103,15,20,.40), transparent 6%),
+        radial-gradient(circle at 50% 48%, rgba(188,22,29,.75), transparent 2.2%),
+        linear-gradient(to top, rgba(58,40,24,.9), rgba(58,40,24,.22) 26%, transparent 40%);
+      filter: blur(0.4px);
+    }
+
+    .caption {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,.86), rgba(0,0,0,.25));
+      color: #f3f3f3;
+      padding: 16px 18px;
+      font-size: 0.93rem;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .article p {
+      font-size: 1.12rem;
+      margin: 18px 0;
+    }
+
+    blockquote {
+      margin: 28px 0;
+      padding: 18px 22px;
+      border-left: 5px solid var(--accent);
+      background: #fbfaf8;
+      font-size: 1.2rem;
+      color: #2d2d2d;
+    }
+
+    .author-box {
+      margin-top: 36px;
+      border-top: 2px solid var(--line);
+      padding-top: 22px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .author-box h3 {
+      margin: 0 0 8px;
+      font-family: Georgia, serif;
+      font-size: 1.4rem;
+    }
+
+    .sidebar {
+      padding: 22px;
+      background: var(--sidebar);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .sidebar h3 {
+      margin: 0 0 16px;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-dark);
+      border-bottom: 2px solid var(--line);
+      padding-bottom: 10px;
+    }
+
+    .story {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .story:last-child { border-bottom: 0; }
+
+    .story .kicker {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .story a {
+      color: var(--ink);
+      font-weight: 700;
+      line-height: 1.35;
+      display: inline-block;
+    }
+
+    .fact-box {
+      margin-top: 28px;
+      background: white;
+      border: 1px solid var(--line);
+      padding: 16px;
+      font-size: 0.95rem;
+    }
+
+    .fact-box strong {
+      display: block;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+      color: var(--accent-dark);
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.88rem;
+      padding: 32px 20px 48px;
+    }
+
+    @media (max-width: 940px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+      .hero { min-height: 300px; }
+    }
+
+    @media (max-width: 640px) {
+      .article { padding: 20px; }
+      .headline { font-size: 2rem; }
+      .article p { font-size: 1.04rem; }
+      .nav { gap: 14px; font-size: 0.88rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div>Wednesday Edition | March 11, 2026</div>
+    <div>Independent Reporting on Science, History & Discovery</div>
+  </div>
+
+  <div class="masthead-wrap">
+    <header class="masthead">
+      <h1 class="publication">Continental Science Dispatch</h1>
+      <div class="tagline">Evidence. Inquiry. Global Research.</div>
+    </header>
+    <nav class="nav">
+      <a href="#">Science</a>
+      <a href="#">Environment</a>
+      <a href="#">Archaeology</a>
+      <a href="#">Technology</a>
+      <a href="#">Health</a>
+      <a href="#">Opinion</a>
+    </nav>
+  </div>
+
+  <main class="page">
+    <article class="article">
+      <div class="section-label">Paleontology</div>
+      <h2 class="headline">Shocking New Discovery Proves Rare Species of West African Tiny Dinosaurs Actually Had Robotic Hearts, and Scientists Are Locating Them in the Fossil Record</h2>
+      <p class="subhed">Researchers say repeated metallic structures found inside multiple microtheropod fossils may represent the first evidence of naturally occurring biomechanical organs in prehistoric life.</p>
+
+      <div class="meta">
+        <div><strong>By:</strong> Dr. Leonard A. Whitcombe</div>
+        <div><strong>Published:</strong> March 11, 2026</div>
+        <div><strong>Reading time:</strong> 4 min read</div>
+      </div>
+
+      <figure class="hero">
+        <div class="hero-art"></div>
+        <figcaption class="caption">Researchers examining a newly scanned chest cavity say the compact circular device at center shows layered geometry, metallic traces, and structural regularity inconsistent with ordinary soft-tissue mineralization.</figcaption>
+      </figure>
+
+      <p>In a development that has stunned paleontologists, materials scientists, and biomedical engineers alike, an international research team announced this week that a rare species of tiny dinosaur from West Africa may have possessed something previously thought impossible in a naturally evolved vertebrate organism: a compact robotic heart.</p>
+
+      <p>The finding, unveiled during a joint briefing by the University of Accra and the European Institute of Paleobiological Systems, centers on several unusually well-preserved fossils recovered from sedimentary formations in northern Ghana. The fossils belong to a miniature theropod species roughly comparable in size to a modern chicken, but what has drawn global attention is not the animal’s frame. It is what appears to be preserved inside its rib cage.</p>
+
+      <p>Researchers using high-resolution micro-CT scanning identified repeated metallic structures in the thoracic cavity of five separate specimens. Each structure appears in the same anatomical position and shares the same internal arrangement: a cylindrical chamber featuring spiral channels, layered plates, and a symmetrical lattice pattern strikingly similar to modern rotary pump designs.</p>
+
+      <blockquote>“At first we believed we were looking at ordinary mineral contamination,” said lead investigator Dr. Kwame Ofori-Danso. “But the geometry was too consistent, too deliberate, and too mechanically organized. These structures do not resemble natural tissue decay. They resemble engineered fluid-moving devices.”</blockquote>
+
+      <p>The research team has provisionally referred to the species as <em>Machinoraptor minutus</em>, or “tiny machine hunter,” pending formal taxonomic review. While the claim remains controversial, the authors of the study argue that the fossil evidence is too structured to be dismissed as geological coincidence.</p>
+
+      <p>Perhaps most startling is the material composition. Preliminary elemental analysis suggests the internal components contain iron-nickel alloys with trace signatures resembling meteoritic metal rather than surrounding terrestrial sediment. According to the team, this detail may explain why the structures remained distinct enough to survive fossilization with their internal geometry partially intact.</p>
+
+      <p>“We are not simply observing odd mineral growth,” said Dr. Elisa Mertens, a materials specialist brought in to examine the specimens. “We are seeing repeated internal architecture, apparent chamber segmentation, and extremely fine rotational vanes. If these are indeed anatomical, then the organism possessed a biomechanical circulatory pump far beyond anything recognized in the vertebrate fossil record.”</p>
+
+      <p>Skeptics have cautioned against premature conclusions. Several outside paleontologists have proposed that unusual chemistry during fossilization may have created pseudo-mechanical patterns that only appear artificial under scanning. Others have suggested that bacterial colonies, pressure fracturing, or trace-metal intrusion might account for the effect.</p>
+
+      <p>Yet the repeated placement and nearly identical orientation of the structures across multiple skeletons has made those explanations harder to sustain. In all five specimens, the metallic assembly is centered exactly where a heart would be expected, with the same tilt, same chamber proportions, and same surrounding tissue compression marks.</p>
+
+      <p>Researchers are now expanding excavation efforts in the region in the hope of locating additional fossils, including juvenile specimens and better-preserved chest cavities. There is also discussion of whether similar structures may have been overlooked in museum collections, mistaken for intrusive mineral nodules and left unscanned for decades.</p>
+
+      <p>If confirmed, the discovery could force a radical reassessment of the limits of biological evolution and the possibility that some prehistoric lineages experimented with hybridized mechanical physiology. For now, the scientific community remains divided. But even critics agree on one point: something highly unusual has been found in West Africa’s fossil beds.</p>
+
+      <p>Whether the so-called robotic hearts prove to be a revolutionary branch of ancient life or one of the strangest preservation phenomena ever documented, the tiny dinosaurs of northern Ghana have already secured a place at the center of one of modern paleontology’s most unsettling debates.</p>
+
+      <div class="author-box">
+        <h3>About the Author</h3>
+        <p><strong>Dr. Leonard A. Whitcombe</strong> is a freelance science writer covering paleontology, evolutionary theory, and archaeological anomalies for digital publications in Europe and North America. He previously spent three months cataloging fossilized trackways in the Atacama Desert and has a professional weakness for any discovery described as “deeply improbable.”</p>
+      </div>
+    </article>
+
+    <aside class="sidebar">
+      <h3>Most Read</h3>
+      <div class="story">
+        <div class="kicker">Archaeology</div>
+        <a href="#">Bronze Age Burial Chamber in Coastal Mauritania Found With 214 Perfectly Stacked Ceremonial Spoons</a>
+      </div>
+      <div class="story">
+        <div class="kicker">Technology</div>
+        <a href="#">European Robotics Lab Unveils Soft-Tissue Drone Designed to Pollinate Greenhouse Orchids</a>
+      </div>
+      <div class="story">
+        <div class="kicker">Science</div>
+        <a href="#">Researchers Debate Whether Deep-Sea Manganese Nodules Can Retain “Memory” of Nearby Electrical Storms</a>
+      </div>
+      <div class="story">
+        <div class="kicker">Field Notes</div>
+        <a href="#">Why Tiny Fossils Are Changing the Biggest Questions in Vertebrate Evolution</a>
+      </div>
+
+      <div class="fact-box">
+        <strong>Key Findings</strong>
+        Five fossils contain nearly identical metallic chest structures.<br><br>
+        Scans show spiral channels, chamber segmentation, and layered plate geometry.<br><br>
+        Elemental analysis suggests iron-nickel alloy traces inconsistent with surrounding rock.
+      </div>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    © 2026 Continental Science Dispatch. All rights reserved. Reproduction without written permission is prohibited.
+  </footer>
+</body>
+</html>
